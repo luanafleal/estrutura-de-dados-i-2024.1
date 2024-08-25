@@ -45,10 +45,46 @@ Lista* buscarValor(Lista* lista) {
     return NULL;
 }
 
+Lista* removerInicio(Lista* lista) {
+    if (estaVazia(lista)) {
+        printf("> Lista Vazia!\n\n");
+        return lista;
+    }
+    
+    Lista* novoPrimeiro = lista->proximo;
+    free(lista);
+
+    return novoPrimeiro;
+}
+
+Lista* removerFinal(Lista* lista) {
+    if (estaVazia(lista)) {
+        printf("> Lista Vazia!\n\n");
+        return lista;
+    }
+
+    if (lista->proximo == NULL) {
+        return removerInicio(lista);
+    }
+
+    Lista* penultimo;
+    Lista* ultimo = lista;
+    while (ultimo->proximo != NULL) {
+        penultimo = ultimo;
+        ultimo = ultimo->proximo;
+    }
+
+    free(ultimo);
+    penultimo->proximo = NULL;
+
+    return lista;
+}
+
 void mostrarLista(Lista* lista) {
     if (estaVazia(lista)) {
         printf("Lista Vazia!\n");
     } else {
+        printf("\n---------------------------\n");
         printf("Lista = (");
         for(Lista* p = lista; p != NULL; p = p->proximo) {
             printf("%d", p->valor);
@@ -57,6 +93,7 @@ void mostrarLista(Lista* lista) {
             }    
         }
         printf(")\n");
+        printf("---------------------------\n");
     }
 }
 

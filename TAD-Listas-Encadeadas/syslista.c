@@ -7,6 +7,7 @@ void liberarLista(Lista* lista);
 
 int main() {
     Lista* minhaLista = novaLista();
+
     menu();
     int opcao;
     scanf("%d", &opcao);
@@ -35,6 +36,14 @@ int main() {
             }
         } else if (opcao == 4) {
             mostrarLista(minhaLista);
+        } else if (opcao == 5) {
+            minhaLista = removerInicio(minhaLista);
+            printf("Removido com Sucesso!\n\n");
+            mostrarLista(minhaLista);
+        } else if (opcao == 6) {
+            minhaLista = removerFinal(minhaLista);
+            printf("Removido com Sucesso!\n\n");
+            mostrarLista(minhaLista);
         }
 
         menu();
@@ -55,6 +64,8 @@ void menu() {
     2 - Inserir Valor no Final\n \
     3 - Buscar Valor\n \
     4 - Mostrar Lista\n \
+    5 - Remover Primeiro Valor\n \
+    6 - Remover Ultimo Valor\n \
     0 - Sair\n \
     >>> ";
     printf("%s", menu);
@@ -65,8 +76,8 @@ void liberarLista(Lista* lista) {
     Lista* proximo;
 
     while (atual != NULL) {
-        proximo = atual->proximo; // Salvar o próximo nó
-        free(atual);              // Liberar o nó atual
-        atual = proximo;         // Avançar para o próximo nó
+        proximo = atual->proximo;
+        free(atual);
+        atual = proximo;
     }
 }
