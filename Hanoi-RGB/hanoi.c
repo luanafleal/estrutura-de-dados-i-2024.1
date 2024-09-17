@@ -46,23 +46,24 @@ char pop(Stack* stack) {
     return value;
 }
 
-void fillStackRandomly(Stack* stack) {
-    if (isFull(stack)) {
+void initializeRandom() {
+    srand(time(NULL)); // Inicialize a semente uma vez
+}
+
+void fillStackRandomly(Stack* stack, int tamanhoFull) {
+    if (isFullDiferente(stack, tamanhoFull)) {
         printf("Pilha já está cheia!\n");
         return;
-    }
+    } // ???? será se tem que verificar se tem pelos menos 1 elemento e não deixar preencher? 
 
-    srand(time(NULL));
 
     char letters[] = {'R', 'G', 'B'};
     int numLetters = sizeof(letters) / sizeof(letters[0]);
 
-    while (!isFull(stack)) {
+    while (!isFullDiferente(stack, tamanhoFull)) {
         char randomLetter = letters[rand() % numLetters];
         push(stack, randomLetter);
     }
-
-
 }
 
 void moveNodes(Stack* stack1, Stack* stack2, Stack* stack3, char origin, char destination) {
@@ -167,4 +168,8 @@ int canPop(Stack* stack) {
 
 int canPush(Stack* stack) {
     return !isFull(stack);
+}
+
+int isFullDiferente(Stack* stack, int tamanhoFull) {
+    return stack->actualSize >= tamanhoFull;
 }
